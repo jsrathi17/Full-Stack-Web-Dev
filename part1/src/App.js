@@ -1,83 +1,42 @@
-import React from 'react'
-
-const Header= (props) => 
-{
- 
- return (
-   <div>
-     <h1>
-       
-        <p> {props.course} </p> </h1>  </div>
-        )  
-}
-const Part= (props) =>
-{
- 
-  return (
-    <div>
-      <p>
-        {props.part} {props.exercises}
-      </p>
-    </div>
-  )
-}
-
-const Content= (props) => 
-{
- 
- return (
-   <>
-
-        
-          <Part part = {props.parts[0].name} exercises= {props.parts[0].exercises} /> 
-          <Part part ={props.parts[1].name} exercises= {props.parts[1].exercises} /> 
-          <Part part = {props.parts[1].name} exercises= {props.parts[2].exercises} /> 
-          
-        
-        </>
-        )  
-}
-
-const Total= (props) => 
-{
-  
- 
-  console.log(props.parts)
- return (
-   <div>
-
-        <p> Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises} </p>        
-        </div>
-        )  
-}
-
+import React, { useState } from 'react'
 
 const App = () => {
-  const course = 
-  { name: 'Half Stack application development',
-   parts: [ 
-  {
-    name: 'Fundamentals of React',
-    exercises: 10
-  }, 
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  console.log(good)
 
-  {
-    name: 'Using props to pass data',
-    exercises: 7
-  }, 
-  {
-    name: 'State of a component',
-    exercises: 14
-  } 
-]
-  }
   return (
-<>
-<Header course = {course.name} />
-<Content parts = {course.parts} />
-<Total parts = {course.parts}/>
-</>
-  )
+    <div> 
+    <h1>give feedback</h1>
+    <button onClick={() => setGood(good + 1)}>good</button>
+    <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
+    <button onClick={() => setBad(bad + 1)}>bad</button>
+    <h1>statistics</h1>
+    
+     good {good} <br/>
+     neutral {neutral} <br/>
+    bad {bad} 
+    
+    </div>
+    )
 }
+
+// const Display = (props) => {
+
+//   good = props.good
+//   bad = props.bad
+//   neutral = props.neutral
+
+//   return(
+//     <div>
+//       good {good}
+//       neutral {neutral}
+//       bad {bad}
+//     </div>
+//   )
+
+// }
 
 export default App
