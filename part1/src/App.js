@@ -2,6 +2,16 @@ import React, { useState } from 'react'
 
 const Statistics = ({good, bad, neutral}) =>
 {
+  if (good === 0 && bad === 0 && neutral ===0)
+  {
+  return (
+    <div>
+      <p>No feedback given </p>
+    </div>
+  )
+  }
+  else 
+  {
   return (
 
     <div>
@@ -16,6 +26,7 @@ const Statistics = ({good, bad, neutral}) =>
     </div>
 
   )
+  }
 
 }
 
@@ -32,6 +43,7 @@ const App = () => {
     <button onClick={() => setGood(good + 1)}>good</button>
     <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
     <button onClick={() => setBad(bad + 1)}>bad</button>
+     
     <Statistics good={good} bad={bad} neutral={neutral} />
 
     </div>
