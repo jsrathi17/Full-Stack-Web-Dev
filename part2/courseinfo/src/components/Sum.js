@@ -1,13 +1,12 @@
 import React from 'react'
 
+const Sum = ({ parts }) => {
+    const sum = parts.map(part => part.exercises).reduce((s, p) => s + p)
 
-const Sum = ({ total }) =>
-{
-    return (
-        <div>
-            total of {total} exercises
-        </div>
-    )
-}
+    return(
+      <b>Number of exercises {sum}</b>
+    ) 
+    console.log('Do i break here? 3')
+  }
 
 export default Sum;
