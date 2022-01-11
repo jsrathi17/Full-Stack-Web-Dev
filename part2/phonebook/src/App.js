@@ -8,11 +8,18 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
+    const duplicatepersons = persons.find((person)=>person.name === newName)
+    if(duplicatepersons === undefined ){
     const newPerson = {
       name: newName
     }
     setPersons(persons.concat(newPerson)) 
-   
+  }
+  else{
+    const message = `${newName} is already added to phonebook`
+    window.prompt(message);
+  }
+    
     setNewName('')
 
   }
