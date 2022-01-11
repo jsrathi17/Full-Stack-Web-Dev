@@ -3,24 +3,20 @@ import Person from './components/Person'
 
 const App = () => {
   const [persons, setPersons ] = useState([])
- 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const addName = (event) => {
     event.preventDefault()
     const duplicatepersons = persons.find((person)=>person.name === newName)
     if(duplicatepersons === undefined ){
     const newPerson = {
-      name: newName
+      name: newName, 
+      number: newNumber
     }
     setPersons(persons.concat(newPerson)) 
   }
-  else{
-    const message = `${newName} is already added to phonebook`
-    window.prompt(message);
-  }
-    
-    setNewName('')
+   setNewName('')
 
   }
 
@@ -29,12 +25,18 @@ const App = () => {
     setNewName(event.target.value)
   }
 
+  const handlenumberAdd = (event) => {
+    console.log(event.target.value)
+    setNewNumber(event.target.value)
+  }
+
   
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit = {addName}>
-        <input value = {newName} onChange={handlenameAdd} />
+        <div> name: <input value = {newName} onChange={handlenameAdd} /></div>
+        <div> number: <input value = {newNumber} onChange={handlenumberAdd} /></div>
           <button type="submit">add</button>
         
       </form>
