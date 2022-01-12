@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import Person from './components/Person'
+import PersonForm from './components/PersonForm'
+import Filter from './components/Filter'
+
 
 const App = () => {
   const [persons, setPersons ] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [newFilter, setFilterName] = useState('')
 
   const addName = (event) => {
     event.preventDefault()
@@ -17,32 +21,27 @@ const App = () => {
     setPersons(persons.concat(newPerson)) 
   }
    setNewName('')
-
+   setNewNumber('')
   }
 
-  const handlenameAdd = (event) => {
-    console.log(event.target.value)
-    setNewName(event.target.value)
-  }
+  const handlenameAdd = (event) => { setNewName(event.target.value) }
+  const handlenumberAdd = (event) => { setNewNumber(event.target.value) }
+  const handlefilterChange = (event) => {setFilterName(event.target.value)}
+  const filterpersons = newFilter === '' ? persons : persons.filter(person => person.name.toUpperCase().includes(newFilter.toUpperCase()))
 
-  const handlenumberAdd = (event) => {
-    console.log(event.target.value)
-    setNewNumber(event.target.value)
-  }
 
-  
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit = {addName}>
-        <div> name: <input value = {newName} onChange={handlenameAdd} /></div>
-        <div> number: <input value = {newNumber} onChange={handlenumberAdd} /></div>
-          <button type="submit">add</button>
-        
-      </form>
+
+      <div> <Filter newFilter={newFilter} handlefilterChange={handlefilterChange} /> </div>
+      <h1> add a new </h1>
+      <div><PersonForm newName={newName} newNumber={newNumber} addName={addName} handlenameAdd={handlenameAdd} handlenumberAdd={handlenumberAdd}/></div>
+
       <h2>Numbers</h2>
+
       <ul>
-        {persons.map(person => <Person key={person.name} person={person} /> )}
+        {filterpersons.map(person => <Person key={person.name} person={person} /> )}
   
       </ul>
     </div>
