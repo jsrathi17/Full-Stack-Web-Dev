@@ -21,7 +21,7 @@ function App() {
   const countriestodisplay = filtername === "" ? [] : country.filter(county => county.name.toUpperCase().includes(filtername.toUpperCase())) 
 
   const handleFilterChange = (event) => setFiltername(event.target.value)
-
+  const handleClick = (country) => setFiltername(country.name)
 
   return (
     <div>
@@ -30,7 +30,7 @@ function App() {
       </div>
       <h2> list of countries are </h2>
       <div>
-          <FilterForm countries={countriestodisplay}/>
+          <FilterForm countries={countriestodisplay} handleClick={handleClick}/>
       </div>
       
     </div>
