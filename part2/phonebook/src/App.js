@@ -35,12 +35,23 @@ const App = () => {
    setNewNumber('')
   }
 
+
+
   const handlenameAdd = (event) => { setNewName(event.target.value) }
   const handlenumberAdd = (event) => { setNewNumber(event.target.value) }
   const handlefilterChange = (event) => {setFilterName(event.target.value)}
   const filterpersons = newFilter === '' ? persons : persons.filter(person => person.name.toUpperCase().includes(newFilter.toUpperCase()))
 
+  const deletePerson = (id, name) => {
+    if(window.confirm('Would you like to delete ' + name + '?')){
+      personservice.deleteId(id).then(() => {
+        const newPersons = persons.filter((item => item.id !== id))
+        setPersons(newPersons)
+      })
+    }
+  }
 
+  
   return (
     <div>
       <h2>Phonebook</h2>
@@ -52,7 +63,7 @@ const App = () => {
       <h2>Numbers</h2>
 
       <ul>
-        {filterpersons.map(person => <Person key={person.name} person={person} /> )}
+        {filterpersons.map(person => <Person key={person.name} person={person} deletePerson={deletePerson} /> )}
   
       </ul>
     </div>
