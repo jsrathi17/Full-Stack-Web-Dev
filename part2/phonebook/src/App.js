@@ -3,12 +3,17 @@ import Person from './components/Person'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import personservice from './services/persons'
+import Notification from './components/Notification'
+
 
 const App = () => {
   const [persons, setPersons ] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setFilterName] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [isError, setIsError] = useState(false)
+
 
   useEffect(() => {
     console.log('effect')
@@ -26,10 +31,15 @@ const App = () => {
       name: newName, 
       number: newNumber
     }
-    personservice.create(newPerson).then(createdperson => {
+    personservice.create(newPerson)
+    .then(createdperson => {
       setPersons(persons.concat(createdperson))
-    })  
+      console.log(createdperson.name + "is added")
+      setErrorMessage(`${createdperson.name} is added`)
+      setTimeout(() => setErrorMessage(null), 3000)
+    })
   }
+
   else
   {
     const data = window.confirm(`${duplicatepersons.name} is already added to phonebook, replace the old number with a new one?`)
@@ -37,7 +47,20 @@ const App = () => {
       const persontoupdate = {...duplicatepersons, number: newNumber}
       personservice.update(persontoupdate).then(updatedPerson => {
           setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
-      })
+          setErrorMessage(
+            `Updated '${updatedPerson.name}'`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)}).catch(error => {
+            setIsError(true)
+            setErrorMessage(
+              `Couldn't update '${duplicatepersons.name}'`
+            )
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+          })
   }
   }
    setNewName('')
@@ -61,6 +84,8 @@ const App = () => {
 
   return (
     <div>
+      <Notification message={errorMessage} errorStatus={isError}/>
+
       <h2>Phonebook</h2>
 
       <div> <Filter newFilter={newFilter} handlefilterChange={handlefilterChange} /> </div>

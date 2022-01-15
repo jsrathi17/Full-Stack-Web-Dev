@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": 2
-    },
-    {
       "name": "Dan Abramov",
       "number": "12-43-234345",
       "id": 3
@@ -24,6 +19,16 @@
       "name": "Jayshree Rathi",
       "number": "123244",
       "id": 7
+    },
+    {
+      "name": "Js",
+      "number": "45676",
+      "id": 9
+    },
+    {
+      "name": "Jayshrerwr",
+      "number": "122434",
+      "id": 10
     }
   ]
 }
