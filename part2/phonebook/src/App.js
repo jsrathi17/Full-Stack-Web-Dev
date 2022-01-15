@@ -2,7 +2,6 @@ import React, { useState, useEffect  } from 'react'
 import Person from './components/Person'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
-import axios from 'axios'
 import personservice from './services/persons'
 
 const App = () => {
@@ -31,11 +30,19 @@ const App = () => {
       setPersons(persons.concat(createdperson))
     })  
   }
+  else
+  {
+    const data = window.confirm(`${duplicatepersons.name} is already added to phonebook, replace the old number with a new one?`)
+    if(data) {
+      const persontoupdate = {...duplicatepersons, number: newNumber}
+      personservice.update(persontoupdate).then(updatedPerson => {
+          setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
+      })
+  }
+  }
    setNewName('')
    setNewNumber('')
   }
-
-
 
   const handlenameAdd = (event) => { setNewName(event.target.value) }
   const handlenumberAdd = (event) => { setNewNumber(event.target.value) }
@@ -51,7 +58,7 @@ const App = () => {
     }
   }
 
-  
+
   return (
     <div>
       <h2>Phonebook</h2>
