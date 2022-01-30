@@ -2,8 +2,8 @@ POST http://localhost:3000/api/blogs
 Content-Type: application/json
 
 {
-    "author": "Jayshree Rathi",
-    "title": "Fullstackwebdevelopment",
+    "author": "Sanyog Lamsal",
+    "title": "Application",
     "url": "https://github.com/jsrathi17/Full-Stack-Web-Dev",
     "upvotes": 10
 }
