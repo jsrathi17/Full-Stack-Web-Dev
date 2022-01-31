@@ -45,11 +45,29 @@ const mostBlogs = (blogs) => {
   return authorOfMostBlogs
 }
 
-
+const mostLikes = (blogs) => {
+  const authors = lodash.reduce(blogs, function(result, blog){
+      if (result[blog.author]){
+          result[blog.author] += blog.likes
+      }
+      else
+          result[blog.author] = 0 + blog.likes
+      return result
+  },{})
+  let authorsobject = []
+  lodash.forIn(authors, function(value, key){
+    authorsobject=authorsobject.concat({
+          author: key,
+          likes: value
+      })
+  })
+  authorsobject.sort((author1,author2) => author2.likes - author1.likes)
+  return authorsobject[0]
+}
 
 
 
 
 module.exports = {
-    dummy, totalLikes, favoriteBlog, mostBlogs
+    dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes
 }
