@@ -1,9 +1,16 @@
-POST http://localhost:3000/api/blogs
+
+
+DELETE http://localhost:3000/api/blogs/5a422b3a1b54a676234d17f9
+Content-Type: application/json
+
+
+
+PUT http://localhost:3000/api/blogs/5a422b891b54a676234d17fa
 Content-Type: application/json
 
 {
-    "author": "Sanyog Lamsal",
-    "title": "Application",
-    "url": "https://github.com/jsrathi17/Full-Stack-Web-Dev",
-    "upvotes": 10
+    "title": "First class tests",
+    "author": "Some Person",
+    "url": "github.com",
+    "likes": 100
 }
