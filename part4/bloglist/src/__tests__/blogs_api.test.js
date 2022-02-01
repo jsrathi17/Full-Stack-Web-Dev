@@ -48,6 +48,26 @@ test('HTTP POST to /api/blogs works', async () => {
   expect(response.body).toHaveLength(initialNumber+1)
 })
 
+test('Testing the Like property of application', async () => {
+  const newBlog = {
+      title: "Sanyog is Great",
+      author: "slamsal",
+      url: "quickmechy.com"
+  }
+  const response = await api.post('/api/blogs').send(newBlog)
+  expect(response.body.likes).toBe(0)
+
+}) 
+
+test('Test missing URL and Title', async () => {
+  const newBlog = new Blog({
+      title: "We can we will",
+      author: "quickmechy",
+  })
+  await api.post('/api/blogs').send(newBlog).expect(400)
+}) 
+
+
 afterAll(() => {
   mongoose.connection.close()
 })
