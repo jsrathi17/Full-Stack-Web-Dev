@@ -34,37 +34,62 @@ test('blogs are returned as json', async () => {
 })
 
 test('HTTP POST to /api/blogs works', async () => {
-  let response = await api.get('/api/blogs')
-  const initialNumber = response.body.length
-  expect(initialNumber).toBe(BlogsList.listWithMultipleBlogs.length)
-  const newBlog = new Blog({
-      title: "Shark Tank is OKAY",
+
+  const addedUser = await api
+  .post("/api/login")
+  .send({ username: 'fullstack', password: 'fullstack' })
+  .expect(200)
+  .expect('Content-type', /application\/json/)
+
+  const newBlog = {
+      title: "AMAZING",
       author: "jsrathi",
       url: "github.com/jsrathi17",
       likes: 10
-  })
-  await newBlog.save()
-  response = await api.get('/api/blogs')
-  expect(response.body).toHaveLength(initialNumber+1)
+  }
+
+   const response = await api.post('/api/blogs').send(newBlog).set('Authorization',`bearer ${addedUser.body.token}`).expect(201)
+  .expect('Content-Type', /application\/json/)
+
+
 })
 
 test('Testing the Like property of application', async () => {
+
+    const addedUser = await api
+    .post("/api/login")
+    .send({ username: 'fullstack', password: 'fullstack' })
+    .expect(200)
+    .expect('Content-type', /application\/json/)
+
   const newBlog = {
       title: "Sanyog is Great",
       author: "slamsal",
       url: "quickmechy.com"
   }
-  const response = await api.post('/api/blogs').send(newBlog)
+  const response = await api.post('/api/blogs').send(newBlog).set('Authorization',`bearer ${addedUser.body.token}`).expect(201)
+  .expect('Content-Type', /application\/json/)
+
   expect(response.body.likes).toBe(0)
 
 }) 
 
 test('Test missing URL and Title', async () => {
+  const addUser = await api.post('/api/users')
+        .send({ name: 'fullstack1', username: 'fullstack1', password: 'fullstack1' });
+        const addedUser = await api
+        .post("/api/login")
+        .send({ username: 'fullstack1', password: 'fullstack1' })
+        .expect(200)
+        .expect('Content-type', /application\/json/)
+
   const newBlog = new Blog({
       title: "We can we will",
       author: "quickmechy",
   })
-  await api.post('/api/blogs').send(newBlog).expect(400)
+  await api.post('/api/blogs').send(newBlog).expect(400) .set('Authorization',`bearer ${addedUser.body.token}`)
+  .expect(400)
+  .expect('Content-Type', /application\/json/)
 }) 
 
 
