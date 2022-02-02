@@ -1,14 +1,15 @@
 
 
 
-PUT http://localhost:3000/api/blogs/5a422b891b54a676234d17fa
+POST http://localhost:3000/api/blogs
 Content-Type: application/json
 
 {
-    "title": "First class tests",
-    "author": "Some Person",
+    "title": "Nothing is Impossible",
+    "author": "Hard Work",
     "url": "github.com",
-    "likes": 100
+    "likes": 100,
+    "user": "61fa77187dd7ee95d85b7cdd"
 }
 
 
