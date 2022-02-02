@@ -1,15 +1,15 @@
 
 
 
-POST http://localhost:3000/api/blogs
+POST http://localhost:3000/api/blogs HTTP/1.1
 Content-Type: application/json
-
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYxZmE3NzE4N2RkN2VlOTVkODViN2NkZCIsImlhdCI6MTY0MzgxMzU5NX0
 {
-    "title": "Nothing is Impossible",
-    "author": "Hard Work",
-    "url": "github.com",
-    "likes": 100,
-    "user": "61fa77187dd7ee95d85b7cdd"
+    "title": "Testing token",
+    "author": "Newers",
+    "url": "fullstackppenm.coms",
+    "likes": 10,
+    "userId": "61fa77187dd7ee95d85b7cdd"
 }
 
 
