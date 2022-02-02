@@ -17,7 +17,7 @@ blogRouter.post('/', async (request, response) => {
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
-  const user = await User.findById(decodedToken.id)
+  const user = request.user
   if (!body.title || !body.url)
   return response.status(400).json({ error: 'title or url is missing' })
 
@@ -52,7 +52,7 @@ blogRouter.delete('/:id', async (request, response) => {
   if (!request.token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
-  const user = await User.findById(decodedToken.id)
+  const user = request.user
   const blog = await Blog.findById(request.params.id)
   if(blog.user.toString() !== user._id.toString()){
     return response.status(401).json({errır: 'can not be deleted other than the creator'})
