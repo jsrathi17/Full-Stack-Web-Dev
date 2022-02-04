@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import ErrorClass from './components/ErrorClass'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
   const [user, setUser] = useState(null)
-
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorClass, setErrorClass] = useState('success')
 
 
   useEffect(() => {
@@ -20,13 +22,20 @@ const App = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
     
+    try {
       const user = await loginService.login({
         username, password,
       })
       setUser(user)
       setUsername('')
       setPassword('')
-
+    } catch (exception) {
+      setErrorMessage('Wrong credentials')
+      setErrorClass('error')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
     console.log('logging in with user', username, password)
   }
 
@@ -63,7 +72,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       
-
+      <ErrorClass message={errorMessage} className={errorClass}/>
         {user === null ?
           loginForm() :
           <div>
