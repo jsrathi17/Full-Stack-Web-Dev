@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
-import loginService from './services/login'
-import ErrorClass from './components/ErrorClass'
 import Notif from './components/Notif'
-import Form from './components/Form'
+import BlogForm from './components/Form'
+import Login from './components/Login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -38,31 +37,26 @@ const App = () => {
     setUser(null)      
 }
 
-const successLogin = () => (
+
+return (
   <div>
-    You are logged in as {user.name}!  <button onClick={handleLogout}>log out</button>
-  </div>
-)
 
-
-
-
-  return (
+    <h2>blogs</h2>
+    <Notif message={message} errorStatus={errorStatus} />
+    {user === null ?
+    <Login setErrorMessage = {setMessage} setErrorStatus={setErrorStatus} user={user} username={username} password={password} setUser={setUser} setPassword={setPassword} setUsername={setUsername}/> :
     <div>
-      <h2>blogs</h2>
-      
-      <ErrorClass message={errorMessage} className={errorClass}/>
-        {user === null ?
-          loginForm() :
-          <div>
-            {successLogin()}
-          </div>
-        }
+      <p>{user.name} logged in as {user.name}</p>
+      <button onClick={handleLogout}>logout</button>
+      <BlogForm setMessage={setMessage} setErrorStatus={setErrorStatus} blogs={blogs} setBlogs={setBlogs}/>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
-      )}
+      )
+      }
     </div>
-  )
+    }
+  </div>
+)
 }
 
 export default App
