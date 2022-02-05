@@ -54,8 +54,9 @@ return (
        <Toggable buttonLabel="create new blog" ref={blogFormRef}>
           <BlogForm blogFormRef={blogFormRef} setMessage={setMessage} setErrorStatus={setErrorStatus} blogs={blogs} setBlogs={setBlogs}/>
         </Toggable>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        {blogs.sort((a, b) => (a.likes > b.likes ? -1 : 1)) && 
+      blogs.map(blog =>
+         <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} />
       )
       }
     </div>
