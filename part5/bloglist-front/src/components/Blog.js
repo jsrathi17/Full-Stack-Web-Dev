@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
-const Blog = ({blog, setBlogs, blogs}) =>{
+
+const Blog = ({blog, setBlogs, blogs,  user, setErrorStatus, setMessage }) =>{
   const [detailsVisible, setDetailsVisible] = useState(false)
   const blogStyle = {
     paddingTop: 10,
@@ -27,6 +28,21 @@ const Blog = ({blog, setBlogs, blogs}) =>{
     )
   }
 
+  const handleBlogDelete = async () => {
+    window.confirm(`Delete ${blog.title} by ${blog.author}?`) && deleteBlog(blog.id)
+  }
+
+  const deleteBlog = async (id) => {
+    await blogService.deleteById(id)
+    setBlogs(blogs.filter((blog) => blog.id !== id))
+    setMessage('successfully deleted')
+    setErrorStatus(false)
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }
+
+
 
 
   const buttonLabel = detailsVisible ? "hide": "view"
@@ -45,6 +61,7 @@ const Blog = ({blog, setBlogs, blogs}) =>{
       </div>
       <div style={displayDetails}>
         {blog.username}
+        <button id='remove' onClick={handleBlogDelete}>delete</button>
       </div>
     </div>  
 )
