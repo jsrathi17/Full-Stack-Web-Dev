@@ -49,7 +49,7 @@ const Blog = ({blog, handleLikeClick, deleteBlog }) =>{
   /* const displayDetails = {display: detailsVisible ? "": "none"} */ 
   return (
     <div style={blogStyle}>
-      <div>
+      <div id="sortingtest">
         {blog.title} {blog.author} <button id="view" data-testid='view' onClick={()=> setDetailsVisible(!detailsVisible)}>{buttonLabel}</button>
       </div>
       <div>

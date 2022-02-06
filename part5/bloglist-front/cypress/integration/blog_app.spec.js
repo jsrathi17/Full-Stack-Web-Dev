@@ -55,7 +55,47 @@ describe('Note app', function() {
         cy.get('#like').click()
         cy.get('[data-testid="likes"]').contains('1')
       })
-
+      
+      it('blog delete feature', function() {
+        cy.get('#title').type('test123')
+        cy.get('#author').type('test123')
+        cy.get('#url').type('http://test123.com')
+        cy.get('#remove').click()
+        cy.on('windows:confirm', () => true)
+        cy.contains("successfully deleted")
+    })
 
       })
 
+      describe('testing sort functionality', function () {
+        beforeEach(function () {
+  
+          cy.CreateNewBlog({
+            title: 'We can we will',
+            author: 'a',
+            url: 'life.org',
+            likes: 10
+          })
+          cy.CreateNewBlog({
+            title: 'Why cannot we?',
+            author: 'b',
+            url: 'strong.org',
+            likes: 9,
+          })
+          cy.CreateNewBlog({
+            title: 'okay',
+            author: 'c',
+            url: 'okay.org',
+            likes: 8,
+          })
+        })
+  
+        it('sort test', function () {
+          cy.get('#sortingtest').should((items) => {
+              console.log(items)
+            expect(items[0]).to.contain('We can we will')
+            expect(items[1]).to.contain('Why cannot we?')
+            expect(items[2]).to.contain('okay')
+          })
+        })
+    })
