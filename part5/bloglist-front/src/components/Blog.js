@@ -50,7 +50,7 @@ const Blog = ({blog, setBlogs, blogs,  user, setErrorStatus, setMessage }) =>{
   console.log(blog)
   return (
     <div style={blogStyle}>
-      <div>
+      <div className='blog'>
         {blog.title} {blog.author} <button onClick={()=> setDetailsVisible(!detailsVisible)}>{buttonLabel}</button>
       </div>
       <div style={displayDetails}>
