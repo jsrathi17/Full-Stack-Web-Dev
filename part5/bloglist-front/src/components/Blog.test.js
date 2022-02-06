@@ -59,8 +59,10 @@ test('renders content', () => {
     const likebutton = component.getByTestId('like')
     component.debug()
     fireEvent.click(likebutton)
-    const likes = component.getByTestId('likes')
-    expect(mockHandler.mock.calls).toHaveLength(1)
+    fireEvent.click(likebutton)
+
+    
+    expect(mockHandler.mock.calls).toHaveLength(2)
   })
 
 
