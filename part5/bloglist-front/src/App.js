@@ -43,7 +43,30 @@ const App = () => {
     }, 5000)
   } 
 
+  const CreateNewBlog = async (newTitle, newAuthor, newUrl) => {
+    blogFormRef.current.toggleVisibility()
+    try{
+        const newBlogObject = {
+            title: newTitle,
+            author: newAuthor,
+            url: newUrl
+        }
+        const response = await blogService.create(newBlogObject)
+        const newBlogs = [...blogs, response]
+        setBlogs(newBlogs)
+        setMessage("a new blog is added")
+        setErrorStatus(false)
+        setTimeout(() => {setMessage(null)}, 5000)
 
+    }
+    catch(exception){
+        console.log(exception)
+        setMessage('Wrong credentials')
+        setErrorStatus(true)
+        setTimeout(() => {setMessage(null)}, 5000)
+    }
+
+}
 
 /* get all blogs */
   useEffect(() => {
@@ -81,7 +104,7 @@ return (
       <p>{user.name} logged in as {user.name}</p>
       <button onClick={handleLogout}>logout</button>
        <Toggable buttonLabel="create new blog" ref={blogFormRef}>
-          <BlogForm blogFormRef={blogFormRef} setMessage={setMessage} setErrorStatus={setErrorStatus} blogs={blogs} setBlogs={setBlogs}/>
+          <BlogForm CreateNewBlog={CreateNewBlog}/>
         </Toggable>
         {blogs.sort((a, b) => (a.likes > b.likes ? -1 : 1)) && 
       blogs.map(blog =>

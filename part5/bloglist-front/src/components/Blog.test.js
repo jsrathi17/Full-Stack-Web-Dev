@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
 import Blog from './Blog'
 import Toggable from './Toggable'
-
+import BlogForm from './Form'
 
 
 describe('<Toggable />', () => {
@@ -57,14 +57,34 @@ test('renders content', () => {
     const button = component.getByTestId('view')
     fireEvent.click(button)
     const likebutton = component.getByTestId('like')
-    component.debug()
     fireEvent.click(likebutton)
     fireEvent.click(likebutton)
 
-    
+
     expect(mockHandler.mock.calls).toHaveLength(2)
   })
 
 
+test('tests blog creation form', async () => {
+  const NewBlog = jest.fn()
+  const component = render(
+    <BlogForm CreateNewBlog={NewBlog}/>
+  )
+component.debug()
+  const title = component.getByTestId('title')
+  fireEvent.change(title, { target: { value: 'What is LYF' } })
+  const authr = component.getByTestId('author')
+  fireEvent.change(authr, { target: { value: 'Jss' } })
+  const urls = component.getByTestId('url')
+  fireEvent.change(urls, { target: { value: 'whatislife.com' } })
+
+  fireEvent.click(component.getByTestId('newblog'))
+
+  expect(NewBlog).toBeCalledWith(
+    'What is LYF',
+    'Jss',
+    'whatislife.com'
+  )
+})
 
 })
