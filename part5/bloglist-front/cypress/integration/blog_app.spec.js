@@ -30,5 +30,25 @@ describe('Note app', function() {
         cy.get("#login-button").click()
         cy.contains("Wrong credentials!")
       })
+    })
+    describe('AFTER LOGGING IN', function() {
+        beforeEach(function() {
+            cy.visit('http://localhost:3000')
+      cy.contains('login').click()
+      cy.get('#username').type('fullstack')
+      cy.get('#password').type('fullstack')
+      cy.get("#login-button").click()
+            })
+
+      it('a new blog can be created', function() {
+          
+        cy.contains('create new blog').click()
+        cy.get('#title').type('test')
+        cy.get('#author').type('test')
+        cy.get('#url').type('http://test.com')
+        cy.get('#newblog').click()
+  
+        cy.contains('test')
+      })
 
   })

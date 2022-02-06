@@ -10,15 +10,15 @@ const BlogForm = ({ CreateNewBlog }) => {
      <form>
         <h1>create new</h1>
         <div> 
-            title <input data-testid = 'title' type="text" value={newTitle} name="title" onChange={({ target }) => setTitle(target.value)} />
+            title <input id="title" data-testid = 'title' type="text" value={newTitle} name="title" onChange={({ target }) => setTitle(target.value)} />
         </div>
         <div>
-            author <input data-testid  = 'author' type="text" value={newAuthor} name="author" onChange={({ target }) => setAuthor(target.value)} />
+            author <input id="author" data-testid  = 'author' type="text" value={newAuthor} name="author" onChange={({ target }) => setAuthor(target.value)} />
         </div>
         <div>
-            URL <input data-testid  = 'url' type="text" value={newUrl} name="url" onChange={({ target }) => setURL(target.value)} />
+            URL <input id= "url" data-testid  = 'url' type="text" value={newUrl} name="url" onChange={({ target }) => setURL(target.value)} />
         </div>
-        <button data-testid= "newblog" onClick={() => CreateNewBlog(newTitle,newAuthor,newUrl)} type="button">Submit</button>    
+        <button id="newblog" data-testid= "newblog" onClick={() => CreateNewBlog(newTitle,newAuthor,newUrl)} type="button">Submit</button>    
     </form>
     )
 }
