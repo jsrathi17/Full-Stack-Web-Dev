@@ -4,7 +4,7 @@ import blogService from '../services/blogs'
 
 const Login = ({setErrorStatus, user, username, password, setUser, setUsername, setPassword, setErrorMessage}) => {
 
-    const handleLogin = async (event) => {
+    const handleLoginForm = async (event) => {
         event.preventDefault()
         try {
             const user = await loginService.login({username, password,})
@@ -24,16 +24,18 @@ const Login = ({setErrorStatus, user, username, password, setUser, setUsername, 
         console.log('logging in with user', username, password)
     }
 
+    
+
 
     return(   
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLoginForm}>
             <div> 
-                username <input type="text" value={username} name="Username" onChange={({ target }) => setUsername(target.value)} />
+                UserName <input id= "username" type="text" value={username} name="Username" onChange={({ target }) => setUsername(target.value)} />
             </div>
             <div>
-                password <input type="password" value={password} name="Password" onChange={({ target }) => setPassword(target.value)} />
+                Password <input id= "password" type="password" value={password} name="Password" onChange={({ target }) => setPassword(target.value)} />
             </div>
-            <button type="submit">login</button>
+            <button id="login-button" type="submit">login</button>
         </form>
     )
 }
