@@ -50,13 +50,13 @@ const Blog = ({blog, handleLikeClick, deleteBlog }) =>{
   return (
     <div style={blogStyle}>
       <div>
-        {blog.title} {blog.author} <button data-testid='view' onClick={()=> setDetailsVisible(!detailsVisible)}>{buttonLabel}</button>
+        {blog.title} {blog.author} <button id="view" data-testid='view' onClick={()=> setDetailsVisible(!detailsVisible)}>{buttonLabel}</button>
       </div>
       <div>
         {blog.url}
       </div>
-      <div data-testid='likes'>
-        likes: {blog.likes} <button data-testid='like' onClick={handleLikeClick}>like</button>
+      <div id="likes" data-testid='likes'>
+        likes: {blog.likes} <button id ="like" data-testid='like' onClick={handleLikeClick}>like</button>
       </div>
       <div>
         {blog.username}

@@ -43,12 +43,19 @@ describe('Note app', function() {
       it('a new blog can be created', function() {
           
         cy.contains('create new blog').click()
-        cy.get('#title').type('test')
-        cy.get('#author').type('test')
-        cy.get('#url').type('http://test.com')
+        cy.get('#title').type('test123')
+        cy.get('#author').type('test123')
+        cy.get('#url').type('http://test123.com')
         cy.get('#newblog').click()
   
         cy.contains('test')
+        cy.contains('view').click()
+        cy.contains('like').click()
+        cy.get('[data-testid="likes"]').contains('0')
+        cy.get('#like').click()
+        cy.get('[data-testid="likes"]').contains('1')
       })
 
-  })
+
+      })
+

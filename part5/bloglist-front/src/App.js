@@ -16,8 +16,7 @@ const App = () => {
   const blogFormRef = useRef()
 
 
-  const handleLikeClick = async (event, blog) => {
-    event.preventDefault()
+  const handleLikeClick = async (blog) => {
     const newBlogObj = {
       ...blog,
       likes: blog.likes+1
