@@ -16,6 +16,35 @@ const App = () => {
   const blogFormRef = useRef()
 
 
+  const handleLikeClick = async (event, blog) => {
+    event.preventDefault()
+    const newBlogObj = {
+      ...blog,
+      likes: blog.likes+1
+    }
+    const  blogiD = blog.id
+    await blogService.update(newBlogObj, blogiD)
+    const updatedBlog = {
+      ...newBlogObj,
+      blogiD
+    }
+    setBlogs(
+      blogs.map((tempBlog) => (blog.id === tempBlog.id ? updatedBlog : tempBlog))
+    )
+  }
+
+  const deleteBlog = async (id) => {
+    await blogService.deleteById(id)
+    setBlogs(blogs.filter((blog) => blog.id !== id))
+    setMessage('successfully deleted')
+    setErrorStatus(false)
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  } 
+
+
+
 /* get all blogs */
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -56,7 +85,7 @@ return (
         </Toggable>
         {blogs.sort((a, b) => (a.likes > b.likes ? -1 : 1)) && 
       blogs.map(blog =>
-         <Blog key={blog.id} user={user} blog={blog} setBlogs={setBlogs} blogs={blogs} setErrorStatus={setErrorStatus} setMessage={setMessage} />
+         <Blog key={blog.id} blog={blog} handleLikeClick={() => handleLikeClick(blog)} deleteBlog={() => deleteBlog(blog.id)} />
       )
       }
     </div>

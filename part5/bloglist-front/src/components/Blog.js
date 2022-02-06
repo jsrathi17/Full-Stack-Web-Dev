@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({blog, setBlogs, blogs,  user, setErrorStatus, setMessage }) =>{
+const Blog = ({blog, handleLikeClick, deleteBlog }) =>{
   const [detailsVisible, setDetailsVisible] = useState(false)
   const blogStyle = {
     paddingTop: 10,
@@ -11,7 +11,7 @@ const Blog = ({blog, setBlogs, blogs,  user, setErrorStatus, setMessage }) =>{
     marginBottom: 5
   }
 
-  const handleLikeClick = async (event) => {
+ /* const handleLikeClick = async (event) => {
     event.preventDefault()
     const newBlogObj = {
       ...blog,
@@ -26,13 +26,13 @@ const Blog = ({blog, setBlogs, blogs,  user, setErrorStatus, setMessage }) =>{
     setBlogs(
       blogs.map((tempBlog) => (blog.id === tempBlog.id ? updatedBlog : tempBlog))
     )
-  }
+  } */
 
   const handleBlogDelete = async () => {
     window.confirm(`Delete ${blog.title} by ${blog.author}?`) && deleteBlog(blog.id)
   }
 
-  const deleteBlog = async (id) => {
+  /* const deleteBlog = async (id) => {
     await blogService.deleteById(id)
     setBlogs(blogs.filter((blog) => blog.id !== id))
     setMessage('successfully deleted')
@@ -40,26 +40,25 @@ const Blog = ({blog, setBlogs, blogs,  user, setErrorStatus, setMessage }) =>{
     setTimeout(() => {
       setMessage(null)
     }, 5000)
-  }
+  } */ 
 
 
 
 
   const buttonLabel = detailsVisible ? "hide": "view"
-  const displayDetails = {display: detailsVisible ? "": "none"}
-  console.log(blog)
+  /* const displayDetails = {display: detailsVisible ? "": "none"} */ 
   return (
     <div style={blogStyle}>
-      <div className='blog'>
-        {blog.title} {blog.author} <button onClick={()=> setDetailsVisible(!detailsVisible)}>{buttonLabel}</button>
+      <div>
+        {blog.title} {blog.author} <button data-testid='view' onClick={()=> setDetailsVisible(!detailsVisible)}>{buttonLabel}</button>
       </div>
-      <div style={displayDetails}>
+      <div>
         {blog.url}
       </div>
-      <div style={displayDetails}>
-        likes: {blog.likes} <button onClick={handleLikeClick}>like</button>
+      <div data-testid='likes'>
+        likes: {blog.likes} <button data-testid='like' onClick={handleLikeClick}>like</button>
       </div>
-      <div style={displayDetails}>
+      <div>
         {blog.username}
         <button id='remove' onClick={handleBlogDelete}>delete</button>
       </div>
