@@ -8,6 +8,7 @@ const Notification = () => {
     padding: 10,
     borderWidth: 1
   }
+  console.log("in notification")
   return (
     <div style={style} >
     {notification}
