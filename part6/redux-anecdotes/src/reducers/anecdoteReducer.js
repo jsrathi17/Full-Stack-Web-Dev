@@ -32,6 +32,9 @@ switch (action.type) {
         : anecdote
     )
   }
+  case 'NewAnecdote': {
+    return [...state, action.data]
+  }
   default: return state;
 }
 }
@@ -42,5 +45,14 @@ return {
   data: { id },
 }
 }
+
+export const CreateNewAnecdote = (anecdote) => ({
+  type: "NewAnecdote",
+  data: {
+    content: anecdote,
+    id: getId(),
+    votes: 0,
+  },
+})
 
 export default reducer
