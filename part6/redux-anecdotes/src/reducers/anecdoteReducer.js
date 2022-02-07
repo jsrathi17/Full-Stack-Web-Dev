@@ -23,7 +23,24 @@ const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
-  return state
+ 
+switch (action.type) {
+  case 'Increment': {
+    return state.map((anecdote) =>
+      anecdote.id === action.data.id
+        ? { ...anecdote, votes: anecdote.votes + 1 }
+        : anecdote
+    )
+  }
+  default: return state;
+}
+}
+
+export const IncrementVote = (id) => {
+return {
+  type: 'Increment',
+  data: { id },
+}
 }
 
 export default reducer
