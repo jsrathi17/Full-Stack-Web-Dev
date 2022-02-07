@@ -4,8 +4,13 @@ import { IncrementVote } from '../reducers/anecdoteReducer'
 import { removeNotification, setNotification } from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
-    const anecdotes = useSelector(state => state.anecdotes)
+    
+
     const dispatch = useDispatch()
+    const anecdotes = useSelector(state => {
+        const filtered = state.filter === 'ALL' ? state.anecdotes : state.anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(state.filter.toLowerCase()))
+        return filtered
+      })
     console.log(anecdotes)
 
     const vote = (id) => {
